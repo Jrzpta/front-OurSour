@@ -1,7 +1,7 @@
 package cl.oursour.app.di
 
 import android.content.Context
-import cl.oursour.app.BuildConfig
+
 import cl.oursour.app.data.local.SessionStore
 import cl.oursour.app.data.remote.dto.AuthInterceptor
 import cl.oursour.app.data.remote.dto.OurSourApi
@@ -41,7 +41,7 @@ class AppContainer(context: Context) {
         .build()
 
     val api: OurSourApi = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_URL)
+        .baseUrl("http://10.0.2.2:8080/")
         .client(okHttp)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

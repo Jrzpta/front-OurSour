@@ -79,7 +79,16 @@ fun AppNavHost(container: AppContainer) {
 
         composable(Routes.INGREDIENTS) {
             val vm: IngredientsViewModel = viewModel { IngredientsViewModel(container.ingredientRepository) }
-            IngredientsScreen(vm, onSearch = { nav.navigate(Routes.RECIPES) })
+            IngredientsScreen(
+                vm,
+                onSearch = { nav.navigate(Routes.RECIPES) },
+                onLogout = {
+                    scope.launch {
+                        container.authRepository.logout()
+                        nav.navigate(Routes.LOGIN) { popUpTo(nav.graph.id) { inclusive = true } }
+                    }
+                }
+            )
         }
 
         composable(Routes.RECIPES) {

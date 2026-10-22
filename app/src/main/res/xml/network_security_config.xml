@@ -3,6 +3,9 @@
 <!-- Permite HTTP (sin TLS) SOLO hacia el backend local de desarrollo -->
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
+
+        <domain includeSubdomains="false">localhost</domain>
+
         <!-- Emulador de Android Studio -->
         <domain includeSubdomains="false">10.0.2.2</domain>
         <!-- Celular físico: reemplaza por la IP de tu PC en la red WiFi -->

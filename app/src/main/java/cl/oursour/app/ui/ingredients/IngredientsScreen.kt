@@ -1,5 +1,7 @@
 package cl.oursour.app.ui.ingredients
 
+import androidx.compose.material.icons.automirrored.filled.Logout
+import androidx.compose.material3.IconButton
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,7 +43,7 @@ import cl.oursour.app.ui.common.label
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun IngredientsScreen(vm: IngredientsViewModel, onSearch: () -> Unit) {
+fun IngredientsScreen(vm: IngredientsViewModel, onSearch: () -> Unit, onLogout: () -> Unit) {
     val ui by vm.ui.collectAsState()
     val snackbar = remember { SnackbarHostState() }
     var showDialog by remember { mutableStateOf(false) }
@@ -51,13 +53,17 @@ fun IngredientsScreen(vm: IngredientsViewModel, onSearch: () -> Unit) {
     }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Mis ingredientes") }) },
-        snackbarHost = { SnackbarHost(snackbar) },
-        floatingActionButton = {
-            FloatingActionButton(onClick = { showDialog = true }) {
-                Icon(Icons.Default.Add, contentDescription = "Agregar ingrediente")
-            }
+        topBar = {
+            TopAppBar(
+                title = { Text("Mis ingredientes") },
+                actions = {
+                    IconButton(onClick = onLogout) {
+                        Icon(Icons.AutoMirrored.Filled.Logout, contentDescription = "Cerrar sesión")
+                    }
+                }
+            )
         },
+
         bottomBar = {
             Row(
                 Modifier.fillMaxWidth().padding(16.dp),
